@@ -17,8 +17,6 @@ const Player: React.FC<PlayerProps> = ({ song, onNext, onPrevious }) => {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
       setProgress(0);
       if (song) {
         audioRef.current.src = song.url;
@@ -75,7 +73,7 @@ const Player: React.FC<PlayerProps> = ({ song, onNext, onPrevious }) => {
   }
 
   return (
-    <div className="flex flex-col items-center p-4 bg-gray-900 text-white">
+    <div className="flex flex-col items-center p-4 bg-transparent text-white">
       <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.name} className="w-64 h-64 mb-4" />
       <h2 className="text-lg">{song.name}</h2>
       <p className="text-gray-400">{song.artist}</p>

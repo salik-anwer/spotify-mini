@@ -5,7 +5,22 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'bg': 'background-color',
+      },
+      transitionDuration: {
+        '500': '500ms',
+      },
+      transitionTimingFunction: {
+        'in-out': 'ease-in-out',
+      },
+    },
+  },
+  variants: {
+    extend: {
+      backgroundColor: ['hover', 'focus'],
+    },
   },
   plugins: [],
 
