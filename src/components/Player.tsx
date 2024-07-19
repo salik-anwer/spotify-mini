@@ -58,12 +58,12 @@ const Player: React.FC = () => {
   
       const audio = audioRef.current;
       audio.addEventListener('ended', handleEnded);
-      
+
       return () => {
         audio.removeEventListener('ended', handleEnded);
       };
     }
-  }, [audioRef.current, onNext]);
+  }, [onNext]);
   
   const handleButtonClick = () => {
     setIsBoxVisible(!isBoxVisible);
