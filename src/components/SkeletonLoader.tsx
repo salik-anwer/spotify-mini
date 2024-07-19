@@ -4,7 +4,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 const SkeletonLoader: React.FC = () => {
   return (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+    <SkeletonTheme baseColor="#202020" highlightColor="#555">
       <div className="p-4">
         {[...Array(8)].map((_, index) => (
           <div key={index} className="flex items-center space-x-4 mb-4 overflow-hidden">

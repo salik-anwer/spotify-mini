@@ -1,76 +1,68 @@
 import React, { useEffect, useState } from 'react';
-import { Song } from '../utilities/fetchSongs';
-import SongItem, { lightenHex } from './SongItem';
+import SongItem from './SongItem';
 import SkeletonLoader from './SkeletonLoader';
+import { SearchIcon } from '../icons/SearchIcon';
+import { useSongContext } from '../hooks/useSongContext';
+import { createColorVariation } from '../utilities/createColorVariation';
 
-interface SongListProps {
-  loading: boolean;
-  onSelect: (id: number) => void;
-  onFilter: (songs: Song[]) => void;
-  id?: number | null;
-  error?: string;
-  songs?: Song[];
-}
-
-const SongList: React.FC<SongListProps> = ({ songs, id, loading, error, onSelect, onFilter }) => {
+const SongList: React.FC = () => {
+  const {songs, error, loading, currentList, updateCurrentList, accentColor} = useSongContext();
 
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<'all' | 'top_tracks'>('all');
-  const [filteredSongs, setFilteredSongs] = useState<Song[]>([]);
 
   useEffect(() => {
     if (songs) {
-      let filtered = songs.filter((song) =>
+      let filteredList = songs.filter((song) =>
         song.name.toLowerCase().includes(search.toLowerCase()) ||
         song.artist.toLowerCase().includes(search.toLowerCase())
       );
 
       if (filter === 'top_tracks') {
-        filtered = filtered.filter(song => song.top_track);
+        filteredList = filteredList.filter(song => song.top_track);
       }
 
-      setFilteredSongs(filtered);
-      onFilter(filtered);
+      updateCurrentList(filteredList);
     }
   }, [search, filter, songs]);
 
-  if (error) return <div className="text-red-500">Error: {error}</div>; //add error page
+  if (error) return <div className="text-red-500">Error: {error.message}</div>;
 
-  const accentColor = () => {
-    const accent = songs?.find(song => song.id === id)?.accent;
-    return accent && lightenHex(accent, 0.4);
-  }
-
-  const hoverColor = accentColor();
+  const hoverColor = createColorVariation(accentColor, 0.4);
 
   return (
-    <div className="h-full overflow-y-auto">
-      <div className="flex justify-between mb-2">
+    <div className="h-full overflow-y-auto pt-7">
+      <div className="flex gap-5 pb-7 font-bold text-2xl">
         <button
           onClick={() => setFilter('all')}
-          className={`px-4 py-2 ${filter === 'all' ? 'bg-blue-500' : 'bg-gray-700'} text-white`}
+          className={`bg-transparent ${filter === 'all' ? 'text-white' : 'text-gray-400/80'}`}
         >
           For You
         </button>
         <button
           onClick={() => setFilter('top_tracks')}
-          className={`px-4 py-2 ${filter === 'top_tracks' ? 'bg-blue-500' : 'bg-gray-700'} text-white`}
+          className={`bg-transparent ${filter === 'top_tracks' ? 'text-white' : 'text-gray-400/80'}`}
         >
           Top Tracks
         </button>
       </div>
-      <input
-        type="text"
-        placeholder="Search by song or artist..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full p-2 mb-2 text-white transition-colors focus:outline-none focus:ring-0"
-        style={{backgroundColor: hoverColor}}
-      />
+      <div className="relative w-full mb-7">
+        <input
+          type="text"
+          placeholder="Search by song or artist..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full py-2 pl-3 pr-10 text-white text-base transition-colors outline-none ring-0 rounded-lg"
+          style={{ backgroundColor: hoverColor || "#333333" }}
+        />
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+          <SearchIcon />
+        </div>
+      </div>
       {loading?
         <SkeletonLoader />:
-        filteredSongs && filteredSongs.map((song) => (
-          <SongItem key={song.id} song={song} onSelect={onSelect} isSelected={song.id === id} hoverColor={hoverColor}/>
+        currentList.map((song) => (
+          <SongItem key={song.id} song={song} />
         ))
       }
     </div>

@@ -1,47 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Song } from '../utilities/fetchSongs';
+import { useSongContext } from '../hooks/useSongContext';
+import { createColorVariation } from '../utilities/createColorVariation';
 
 interface SongItemProps {
   song: Song;
-  onSelect: (id: number) => void;
-  isSelected: boolean;
-  hoverColor?: string;
 }
 interface StyledDivProps {
-  isSelected: boolean;
+  isselected: boolean | undefined;
   color: string;
-  hoverColor: string;
+  hovercolor: string;
 }
 
 const StyledDiv = styled.div<StyledDivProps>`
   transition: background-color 0.3s ease;
-  background-color: ${props => (props.isSelected ? props.color : 'transparent')};
+  background-color: ${props => (props.isselected ? props.color : 'transparent')};
   &:hover {
-    background-color: ${props => props.hoverColor || "grey"};
+    background-color: ${props => props.hovercolor || "grey"};
   }
 `;
 
-export const lightenHex = (hex: string, percent: number) => {
-  hex = hex.replace('#', '');
-
-  let r = parseInt(hex.substring(0, 2), 16);
-  let g = parseInt(hex.substring(2, 4), 16);
-  let b = parseInt(hex.substring(4, 6), 16);
-  
-  r = Math.round(r * (1 + percent));
-  g = Math.round(g * (1 + percent));
-  b = Math.round(b * (1 + percent));
-  
-  r = Math.min(r, 255);
-  g = Math.min(g, 255);
-  b = Math.min(b, 255);
-  
-  const result = `#${(r).toString(16).padStart(2, '0')}${(g).toString(16).padStart(2, '0')}${(b).toString(16).padStart(2, '0')}`;
-  return result;
-};
-
-const SongItem: React.FC<SongItemProps> = ({ song, isSelected, hoverColor, onSelect }) => {
+const SongItem: React.FC<SongItemProps> = ({ song }) => {
+  const {selectedSongId, updateSelectedSongId, accentColor, updateAccentColor} = useSongContext();
   const [duration, setDuration] = useState<number | null>(null);
 
   useEffect(() => {
@@ -58,24 +39,30 @@ const SongItem: React.FC<SongItemProps> = ({ song, isSelected, hoverColor, onSel
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
-  const color = isSelected? lightenHex(song.accent, 0.9): "transparent";
+  const updateSong = (id: number, color: string) => {
+    updateSelectedSongId(id);
+    updateAccentColor(color);
+  }
+
+  const color = song.id === selectedSongId? createColorVariation(accentColor, 0.9): "transparent";
+  const hoverColor = createColorVariation(accentColor, 0.4);
 
   return (
     <StyledDiv
-      className="flex items-center justify-between p-2 cursor-pointer"
+      className="flex items-center justify-between p-2 cursor-pointer rounded-lg"
       color={color}
-      hoverColor={hoverColor || "#333333"}
-      isSelected={isSelected}
-      onClick={() => onSelect(song.id)}
+      hovercolor={hoverColor || "#333333"}
+      isselected={song.id === selectedSongId}
+      onClick={() => updateSong(song.id, song.accent)}
     >
       <div className="flex items-center">
-        <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.name} className="w-12 h-12 mr-2" />
+        <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.name} className="w-12 h-12 mr-2 rounded-full" />
         <div>
-          <h4 className="text-white text-sm">{song.name}</h4>
-          <p className="text-gray-400 text-xs">{song.artist}</p>
+          <h4 className="text-white text-base">{song.name}</h4>
+          <p className="text-gray-400 text-sm">{song.artist}</p>
         </div>
       </div>
-      <div className="text-gray-400">
+      <div className="text-gray-400 text-sm">
           {formatDuration(duration)}
       </div>    
     </StyledDiv>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from './App';
+import AppContainer from './container/AppContainer';
 import './index.css';
 
 const queryClient = new QueryClient();
@@ -12,7 +12,7 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <AppContainer/>
     </QueryClientProvider>
   </React.StrictMode>
 );
