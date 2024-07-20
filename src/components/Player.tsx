@@ -99,7 +99,7 @@ const Player: React.FC = () => {
             <button
               style={{backgroundColor: color}}
               onClick={handleHireMeClick}
-              className="absolute bottom-full w-20 h-10 font-bold shadow-lg z-20 rounded-lg left-1/2 transform -translate-x-1/2 transition transform duration-150 ease-in-out hover:scale-105 active:scale-95 active:bg-opacity-75">
+              className="absolute bottom-full w-20 h-10 font-bold shadow-lg z-20 rounded-lg left-0 transition transform duration-150 ease-in-out hover:scale-105 active:scale-95 active:bg-opacity-75">
               Hire me
             </button>
             )}
