@@ -3,6 +3,7 @@ import { CgMenuRound } from "react-icons/cg";
 import { SiYoutubemusic } from "react-icons/si";
 import { Navbar, Player, SongList } from '../components';
 import { useSongContext } from '../hooks';
+import { getGradient } from '../utilities';
 
 const App: React.FC = () => {
   const {
@@ -25,8 +26,11 @@ const App: React.FC = () => {
     }
   },[selectedSongId]);
 
+  const gradientBackground = getGradient(accentColor);
+
+
   return (
-    <div style={{backgroundColor: accentColor}} className="flex gap-4 h-screen w-screen flex transition-bg duration-500 ease-in-out px-4 ">
+    <div style={{background: gradientBackground}} className="flex gap-4 h-screen w-screen flex transition-bg duration-500 ease-in-out px-4 ">
       <Navbar />
       <div className="flex-grow flex gap-4">
         <div className={`w-full md:w-1/3 bg-transparent ${isListVisible ? 'block' : 'hidden md:block'}`}>

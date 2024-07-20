@@ -58,7 +58,7 @@ const SongItem: React.FC<SongItemProps> = ({ song }) => {
         <img src={`https://cms.samespace.com/assets/${song.cover}`} alt={song.name} className="w-12 h-12 mr-2 rounded-full" />
         <div>
           <h4 className="text-white text-base">{song.name}</h4>
-          <p className="text-gray-400 text-sm">{song.artist}</p>
+          <p className="text-gray-300 text-sm">{song.artist}</p>
         </div>
       </div>
       <div className="text-gray-400 text-sm">
