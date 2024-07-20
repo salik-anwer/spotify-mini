@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Song } from '../utilities/fetchSongs';
-import { useSongContext } from '../hooks/useSongContext';
-import { createColorVariation } from '../utilities/createColorVariation';
+import { useSongContext } from '../hooks';
+import { createColorVariation, Song } from '../utilities';
 
 interface SongItemProps {
   song: Song;
@@ -69,4 +68,4 @@ const SongItem: React.FC<SongItemProps> = ({ song }) => {
   );
 };
 
-export default SongItem;
+export { SongItem };

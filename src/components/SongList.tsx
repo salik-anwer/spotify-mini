@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import SongItem from './SongItem';
-import SkeletonLoader from './SkeletonLoader';
-import { SearchIcon } from '../icons/SearchIcon';
-import { useSongContext } from '../hooks/useSongContext';
-import { createColorVariation } from '../utilities/createColorVariation';
+import { SongItem, SkeletonLoader } from '../components';
+import { SearchIcon } from '../icons';
+import { useSongContext } from '../hooks';
+import { createColorVariation } from '../utilities';
 
 const SongList: React.FC = () => {
   const {songs, error, loading, currentList, updateCurrentList, accentColor} = useSongContext();
@@ -69,4 +68,4 @@ const SongList: React.FC = () => {
   );
 };
 
-export default SongList;
+export { SongList };

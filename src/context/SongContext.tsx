@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode, useEffect } from 'react';
-import { Song } from '../utilities/fetchSongs';
+import { Song } from '../utilities';
 
 interface SongContextProps {
     songs: Song[] | undefined;

@@ -1,6 +1,6 @@
-import App from "../components/App";
+import { App } from "../components";
 import { SongContextProvider } from "../context/SongContext";
-import { useSongs } from "../hooks/useSongs"
+import { useSongs } from "../hooks"
 
 const AppContainer = () => {
     const {data, error, isLoading} = useSongs();

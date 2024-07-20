@@ -20,4 +20,4 @@ const SkeletonLoader: React.FC = () => {
   );
 };
 
-export default SkeletonLoader;
+export { SkeletonLoader };

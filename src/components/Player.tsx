@@ -1,14 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Song } from '../utilities/fetchSongs';
 import { FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
-import {PlayIcon} from '../icons/PlayIcon';
-import {PauseIcon} from '../icons/PauseIcon';
-import { NextIcon } from '../icons/NextIcon';
-import { PreviousIcon} from '../icons/PreviousIcon';
-import { Dots } from '../icons/Dots';
-import { useSongContext } from '../hooks/useSongContext';
-import getPlayerFunctions from '../utilities/getPlayerFunctions';
-import { createColorVariation } from '../utilities/createColorVariation';
+import { Dots, NextIcon, PauseIcon, PlayIcon, PreviousIcon } from '../icons';
+import { useSongContext } from '../hooks';
+import {getPlayerFunctions, createColorVariation, Song} from '../utilities';
 
 const Player: React.FC = () => {
   const {selectedSongId, updateSelectedSongId, accentColor, updateAccentColor, currentList, songs} = useSongContext();
@@ -135,4 +129,4 @@ const Player: React.FC = () => {
   );
 };
 
-export default Player;
+export { Player };

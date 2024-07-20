@@ -77,4 +77,4 @@ const getPlayerFunctions = (data: PlayerFunctionsType) => {
       return {onNext, onPrevious, handleMute, handlePlayPause, handleSeek, handleTimeUpdate};
 };
 
-export default getPlayerFunctions;
+export { getPlayerFunctions };

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import SongList from './SongList';
-import Player from './Player';
-import { useSongContext } from '../hooks/useSongContext';
 import { CgMenuRound } from "react-icons/cg";
 import { SiYoutubemusic } from "react-icons/si";
+import { Navbar, Player, SongList } from '../components';
+import { useSongContext } from '../hooks';
 
 const App: React.FC = () => {
   const {
@@ -40,7 +38,7 @@ const App: React.FC = () => {
       </div>
       <button
         onClick={handleToggleList}
-        className="sm:hidden fixed bottom-4 right-4 text-4xl text-white p-2 rounded-full transition transform duration-150 ease-in-out hover:scale-105 active:scale-95 active:bg-opacity-75"
+        className="md:hidden fixed bottom-4 right-4 text-4xl text-white p-2 rounded-full transition transform duration-150 ease-in-out hover:scale-105 active:scale-95 active:bg-opacity-75"
       >
         {isListVisible ? <SiYoutubemusic /> : <CgMenuRound />}
       </button>
@@ -48,4 +46,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export { App };
