@@ -1,2 +1,3 @@
 # spotify-mini
-A lightweight spotify clone
+A lightweight music player - Responsive, Smooth, Fast, Simple
+Available at: https://spotify-mini-weird.vercel.app/
