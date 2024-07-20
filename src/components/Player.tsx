@@ -74,7 +74,7 @@ const Player: React.FC = () => {
   const color = createColorVariation(accentColor, 0.9);
 
   return (
-    <div className="flex flex-col items-center pt-[5.3rem] bg-transparent text-white">
+    <div className="flex flex-col items-center pt-[5.3rem] bg-transparent text-white h-full overflow-y-auto">
       <div className="flex flex-col items-start w-80 sm:w-96 md:w-[26rem] gap-3">
         <div className="flex flex-col items-start">
           <h2 className="text-4xl font-bold">{song.name}</h2>
